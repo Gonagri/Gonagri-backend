@@ -14,21 +14,29 @@ A secure PostgreSQL backend for the "Coming Soon" page to collect email signups 
 - Node.js (v18+)
 - PostgreSQL (v12+)
 
-### Setup
+### Setup (5 minutes)
 
 ```bash
 # 1. Install dependencies
 npm install
 
-# 2. Configure environment (copy template)
+# 2. Copy environment template
 cp .env.example .env
-# Edit .env with your DATABASE_URL and CORS_ORIGIN
 
-# 3. Start development server
+# 3. Edit .env with your database credentials
+# DATABASE_URL=postgresql://user:password@localhost:5432/gonagri
+# CORS_ORIGIN=http://localhost:3000
+
+# 4. Initialize database
+npm run db:setup
+
+# 5. Start server
 npm run dev
 ```
 
 Server runs on `http://localhost:3000` by default.
+
+**For detailed setup instructions, see [docs/SETUP.md](docs/SETUP.md)**
 
 ## Core Endpoints
 
@@ -44,6 +52,7 @@ See [API Documentation](docs/API.md) for full details and examples.
 
 This project includes comprehensive documentation:
 
+- **[SETUP.md](docs/SETUP.md)** - Installation, database setup, troubleshooting (👈 Start here)
 - **[API.md](docs/API.md)** - Complete API reference, endpoints, request/response examples
 - **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** - System design, folder structure, request flow
 - **[DEVELOPMENT.md](docs/DEVELOPMENT.md)** - Development guidelines, how to add endpoints
@@ -124,11 +133,12 @@ npm run lint     # Run linter (if configured)
 
 ## Support
 
-- Questions about endpoints? → See [API.md](docs/API.md)
-- Adding a new feature? → See [DEVELOPMENT.md](docs/DEVELOPMENT.md)
-- Database setup issues? → See [DATABASE.md](docs/DATABASE.md)
-- Error help? → See [ERROR_CODES.md](docs/ERROR_CODES.md)
-- Security concerns? → See [SECURITY.md](docs/SECURITY.md)
+- **Getting started?** → See [SETUP.md](docs/SETUP.md)
+- **Questions about endpoints?** → See [API.md](docs/API.md)
+- **Adding a new feature?** → See [DEVELOPMENT.md](docs/DEVELOPMENT.md)
+- **Database setup issues?** → See [DATABASE.md](docs/DATABASE.md)
+- **Error help?** → See [ERROR_CODES.md](docs/ERROR_CODES.md)
+- **Security concerns?** → See [SECURITY.md](docs/SECURITY.md)
 
 ## License
 

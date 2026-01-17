@@ -5,14 +5,21 @@ import { z } from 'zod';
 
 const router = Router();
 
+/**
+ * Zod validation schema for waitlist subscription
+ */
 const subscribeSchema = z.object({
-  email: z.string().email('Invalid email format'),
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Invalid email format')
+    .toLowerCase(),
 });
 
-router.post(
-  '/',
-  validateRequest(subscribeSchema),
-  subscribeToWaitlist
-);
+/**
+ * POST /v1/waitlist/
+ * Subscribe email to the waitlist
+ */
+router.post('/', validateRequest(subscribeSchema), subscribeToWaitlist);
 
 export default router;

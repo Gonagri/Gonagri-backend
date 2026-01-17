@@ -5,7 +5,9 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",
-    "dev": "ts-node-dev --respawn src/server.ts"
+    "dev": "ts-node-dev --respawn src/server.ts",
+    "db:setup": "ts-node database/setup.ts",
+    "db:init": "psql $DATABASE_URL < database/init.sql"
   },
   "dependencies": {
     "express": "^4.18.2",
