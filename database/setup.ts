@@ -1,63 +1,46 @@
-import pool from '../src/config/db';
-import fs from 'fs';
-import path from 'path';
+import pool from "./db.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-/**
- * Database Setup Script
- * 
- * Runs migrations and initializes the database schema.
- * Usage: npx ts-node database/setup.ts
- */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function setupDatabase(): Promise<void> {
   const client = await pool.connect();
 
   try {
-    console.log('[DB Setup] Starting database initialization...');
+    console.log("[DB Setup] Starting database initialization...");
 
-    // Read schema file
-    const schemaPath = path.join(__dirname, 'schema.sql');
-    const schema = fs.readFileSync(schemaPath, 'utf-8');
+    const schemaPath = path.join(__dirname, "schema.sql");
+    const schema = fs.readFileSync(schemaPath, "utf-8");
 
-    // Split by semicolon and filter empty statements
     const statements = schema
-      .split(';')
-      .map((stmt) => stmt.trim())
-      .filter((stmt) => stmt.length > 0);
+      .split(";")
+      .map(stmt => stmt.trim())
+      .filter(Boolean);
 
-    // Execute each statement
     for (const statement of statements) {
-      try {
-        await client.query(statement);
-        console.log(`[DB Setup] ✓ Executed: ${statement.substring(0, 50)}...`);
-      } catch (error: any) {
-        console.error(`[DB Setup] ✗ Error executing statement: ${error.message}`);
-        throw error;
-      }
+      await client.query(statement);
+      console.log("[DB Setup] ✓ Executed statement");
     }
 
-    console.log('[DB Setup] ✓ Database initialization complete!');
-
-    // Print table info
     const tables = await client.query(`
-      SELECT table_name 
-      FROM information_schema.tables 
+      SELECT table_name
+      FROM information_schema.tables
       WHERE table_schema = 'public'
     `);
 
-    console.log('[DB Setup] Tables created:');
-    tables.rows.forEach((row) => {
-      console.log(`  - ${row.table_name}`);
-    });
+    console.log("[DB Setup] Tables created:");
+    tables.rows.forEach(row => console.log(" -", row.table_name));
 
-    process.exit(0);
   } catch (error) {
-    console.error('[DB Setup] Fatal error:', error);
+    console.error("[DB Setup] Fatal error:", error);
     process.exit(1);
   } finally {
     client.release();
+    process.exit(0);
   }
 }
 
-// Run setup
 setupDatabase();

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { ApiError } from '../utils/ApiError';
-import { NODE_ENV } from '../config/env';
+import { ApiError } from '../utils/ApiError.js';
+import { NODE_ENV } from '../config/env.js';
 
 const errorHandler = (
   err: Error,

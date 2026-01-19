@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { CORS_ORIGIN } from '../config/env';
+import { CORS_ORIGIN } from '../config/env.js';
 
 const cors = (req: Request, res: Response, next: NextFunction) => {
   const origin = req.headers.origin;

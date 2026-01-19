@@ -3,26 +3,28 @@
   "version": "1.0.0",
   "description": "Gonagri backend API",
   "main": "src/server.ts",
+  "type": "module",
   "scripts": {
-    "start": "ts-node src/server.ts",
-    "dev": "ts-node-dev --respawn src/server.ts",
-    "db:setup": "ts-node database/setup.ts",
+    "start": "node dist/src/server.js",
+    "dev": "tsx watch src/server.ts",
+    "db:setup": "tsx database/setup.ts",
     "db:init": "psql $DATABASE_URL < database/init.sql"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "zod": "^3.22.4",
-    "pg": "^8.11.3",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
     "helmet": "^7.1.0",
-    "express-rate-limit": "^7.1.5"
+    "pg": "^8.11.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^20.10.6",
     "@types/pg": "^8.11.2",
-    "typescript": "^5.3.3",
     "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

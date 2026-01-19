@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { addContactMessage } from '../models/contact.model';
+import { addContactMessage } from '../models/contact.model.js';
 
 /**
  * Submit a contact message from the Coming Soon page
