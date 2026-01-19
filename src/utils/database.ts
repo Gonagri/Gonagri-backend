@@ -3,7 +3,7 @@
  * Helper functions for database operations
  */
 
-import pool from '../config/db.js';
+import pool from '../config/db';
 
 /**
  * Check if database connection is healthy

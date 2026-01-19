@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { addSubscriber } from '../models/subscriber.model.js';
+import { addSubscriber } from '../models/subscriber.model';
 
 /**
  * Subscribe an email address to the waitlist

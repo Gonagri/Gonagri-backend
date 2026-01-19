@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { validateRequest } from '../middlewares/validate.middleware.js';
-import { subscribeToWaitlist } from '../controllers/waitlist.controller.js';
+import { validateRequest } from '../middlewares/validate.middleware';
+import { subscribeToWaitlist } from '../controllers/waitlist.controller';
 import { z } from 'zod';
 
 const router = Router();

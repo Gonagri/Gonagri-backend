@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { validateRequest } from '../middlewares/validate.middleware.js';
-import { submitContactMessage } from '../controllers/contact.controller.js';
+import { validateRequest } from '../middlewares/validate.middleware';
+import { submitContactMessage } from '../controllers/contact.controller';
 import { z } from 'zod';
 
 const router = Router();

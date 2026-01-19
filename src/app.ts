@@ -1,10 +1,10 @@
 import express, { Express } from 'express';
-import cors from './middlewares/cors.middleware.js';
-import errorHandler from './middlewares/error.middleware.js';
-import { securityHeaders, apiLimiter, authLimiter } from './middlewares/security.middleware.js';
-import healthRoutes from './routes/health.routes.js';
-import waitlistRoutes from './routes/waitlist.routes.js';
-import contactRoutes from './routes/contact.routes.js';
+import cors from './middlewares/cors.middleware';
+import errorHandler from './middlewares/error.middleware';
+import { securityHeaders, apiLimiter, authLimiter } from './middlewares/security.middleware';
+import healthRoutes from './routes/health.routes';
+import waitlistRoutes from './routes/waitlist.routes';
+import contactRoutes from './routes/contact.routes';
 
 const app: Express = express();
 

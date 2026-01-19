@@ -1,5 +1,5 @@
-import pool from '../config/db.js';
-import { ConflictError, NotFoundError } from '../utils/ApiError.js';
+import pool from '../config/db';
+import { ConflictError, NotFoundError } from '../utils/ApiError';
 
 export interface Subscriber {
   id: number;

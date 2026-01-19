@@ -1,5 +1,5 @@
-import pool from '../config/db.js';
-import { NotFoundError } from '../utils/ApiError.js';
+import pool from '../config/db';
+import { NotFoundError } from '../utils/ApiError';
 
 export interface ContactMessage {
   id: number;
