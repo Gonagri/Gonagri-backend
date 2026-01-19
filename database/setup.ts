@@ -1,4 +1,4 @@
-import pool from '../src/config/db';
+import { getPool } from '../src/config/db';
 import fs from 'fs';
 import path from 'path';
 
@@ -10,6 +10,7 @@ import path from 'path';
  */
 
 async function setupDatabase(): Promise<void> {
+  const pool = await getPool();
   const client = await pool.connect();
 
   try {

@@ -3,7 +3,7 @@
  * Helper functions for database operations
  */
 
-import pool from '../config/db';
+import { getPool } from '../config/db';
 
 /**
  * Check if database connection is healthy
@@ -11,6 +11,7 @@ import pool from '../config/db';
  */
 export const isDbHealthy = async (): Promise<boolean> => {
   try {
+    const pool = await getPool();
     const result = await pool.query('SELECT 1');
     return result.rowCount === 1;
   } catch (error) {
@@ -24,6 +25,7 @@ export const isDbHealthy = async (): Promise<boolean> => {
  */
 export const getDatabaseStats = async () => {
   try {
+    const pool = await getPool();
     const subscribersCount = await pool.query(
       'SELECT COUNT(*) as count FROM subscribers'
     );
@@ -54,6 +56,7 @@ export const getDatabaseStats = async () => {
  */
 export const clearDatabase = async () => {
   try {
+    const pool = await getPool();
     await pool.query('DELETE FROM contact_messages');
     await pool.query('DELETE FROM subscribers');
 
@@ -72,6 +75,7 @@ export const clearDatabase = async () => {
  */
 export const resetSequences = async () => {
   try {
+    const pool = await getPool();
     await pool.query('ALTER SEQUENCE subscribers_id_seq RESTART WITH 1');
     await pool.query('ALTER SEQUENCE contact_messages_id_seq RESTART WITH 1');
 
