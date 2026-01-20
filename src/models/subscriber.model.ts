@@ -1,4 +1,4 @@
-import pool from '../config/db';
+import { getPool } from '../config/db';
 import { ConflictError, NotFoundError } from '../utils/ApiError';
 
 export interface Subscriber {
@@ -15,6 +15,7 @@ export interface Subscriber {
  */
 export const addSubscriber = async (email: string): Promise<Subscriber> => {
   try {
+    const pool = await getPool();
     const query = `
       INSERT INTO subscribers (email)
       VALUES ($1)
@@ -39,6 +40,7 @@ export const addSubscriber = async (email: string): Promise<Subscriber> => {
 export const getSubscriberByEmail = async (
   email: string
 ): Promise<Subscriber | null> => {
+  const pool = await getPool();
   const query = 'SELECT id, email, created_at FROM subscribers WHERE email = $1';
   const result = await pool.query(query, [email]);
   return result.rows[0] || null;
@@ -50,6 +52,7 @@ export const getSubscriberByEmail = async (
  * @returns Subscriber object or null if not found
  */
 export const getSubscriberById = async (id: number): Promise<Subscriber | null> => {
+  const pool = await getPool();
   const query = 'SELECT id, email, created_at FROM subscribers WHERE id = $1';
   const result = await pool.query(query, [id]);
   return result.rows[0] || null;
@@ -65,6 +68,7 @@ export const getAllSubscribers = async (
   limit: number = 100,
   offset: number = 0
 ): Promise<Subscriber[]> => {
+  const pool = await getPool();
   const query = `
     SELECT id, email, created_at 
     FROM subscribers 
@@ -80,6 +84,7 @@ export const getAllSubscribers = async (
  * @returns Total number of subscribers
  */
 export const getSubscriberCount = async (): Promise<number> => {
+  const pool = await getPool();
   const query = 'SELECT COUNT(*) as count FROM subscribers';
   const result = await pool.query(query);
   return parseInt(result.rows[0].count, 10);
@@ -91,6 +96,7 @@ export const getSubscriberCount = async (): Promise<number> => {
  * @returns True if deleted, false if not found
  */
 export const deleteSubscriberByEmail = async (email: string): Promise<boolean> => {
+  const pool = await getPool();
   const query = 'DELETE FROM subscribers WHERE email = $1 RETURNING id';
   const result = await pool.query(query, [email]);
   return result.rowCount !== null && result.rowCount > 0;

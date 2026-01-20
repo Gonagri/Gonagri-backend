@@ -1,4 +1,4 @@
-import pool from '../config/db';
+import { getPool } from '../config/db';
 import { NotFoundError } from '../utils/ApiError';
 
 export interface ContactMessage {
@@ -21,6 +21,7 @@ export const addContactMessage = async (
   email: string,
   message: string
 ): Promise<ContactMessage> => {
+  const pool = await getPool();
   const query = `
     INSERT INTO contact_messages (name, email, message)
     VALUES ($1, $2, $3)
@@ -40,6 +41,7 @@ export const getContactMessages = async (
   limit: number = 100,
   offset: number = 0
 ): Promise<ContactMessage[]> => {
+  const pool = await getPool();
   const query = `
     SELECT id, name, email, message, created_at 
     FROM contact_messages 
@@ -58,6 +60,7 @@ export const getContactMessages = async (
 export const getContactMessageById = async (
   id: number
 ): Promise<ContactMessage | null> => {
+  const pool = await getPool();
   const query = `
     SELECT id, name, email, message, created_at 
     FROM contact_messages 
@@ -77,6 +80,7 @@ export const getMessagesByEmail = async (
   email: string,
   limit: number = 50
 ): Promise<ContactMessage[]> => {
+  const pool = await getPool();
   const query = `
     SELECT id, name, email, message, created_at 
     FROM contact_messages 
@@ -93,6 +97,7 @@ export const getMessagesByEmail = async (
  * @returns Total number of messages
  */
 export const getContactMessageCount = async (): Promise<number> => {
+  const pool = await getPool();
   const query = 'SELECT COUNT(*) as count FROM contact_messages';
   const result = await pool.query(query);
   return parseInt(result.rows[0].count, 10);
@@ -104,6 +109,7 @@ export const getContactMessageCount = async (): Promise<number> => {
  * @returns True if deleted, false if not found
  */
 export const deleteContactMessage = async (id: number): Promise<boolean> => {
+  const pool = await getPool();
   const query = 'DELETE FROM contact_messages WHERE id = $1 RETURNING id';
   const result = await pool.query(query, [id]);
   return result.rowCount !== null && result.rowCount > 0;
@@ -119,6 +125,7 @@ export const getMessagesByDateRange = async (
   startDate: string,
   endDate: string
 ): Promise<ContactMessage[]> => {
+  const pool = await getPool();
   const query = `
     SELECT id, name, email, message, created_at 
     FROM contact_messages 
